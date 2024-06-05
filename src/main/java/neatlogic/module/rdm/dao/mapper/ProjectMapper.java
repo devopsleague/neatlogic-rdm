@@ -41,6 +41,8 @@ public interface ProjectMapper {
 
     ProjectVo getProjectById(Long id);
 
+    ProjectVo getProjectByName(String name);
+
     int searchProjectCount(ProjectConditionVo projectVo);
 
     List<ProjectVo> searchProject(ProjectConditionVo projectVo);

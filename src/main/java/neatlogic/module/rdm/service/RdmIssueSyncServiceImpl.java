@@ -9,8 +9,11 @@ import neatlogic.framework.dto.plugin.issue.SyncIssueVo;
 import neatlogic.framework.plugin.issue.IssueSyncService;
 import neatlogic.framework.rdm.dto.IssueConditionVo;
 import neatlogic.framework.rdm.dto.IssueVo;
+import neatlogic.framework.rdm.dto.ProjectVo;
 import neatlogic.module.rdm.dao.mapper.IssueMapper;
+import neatlogic.module.rdm.dao.mapper.ProjectMapper;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -35,6 +38,9 @@ public class RdmIssueSyncServiceImpl implements IssueSyncService {
 
     @Resource
     private IssueMapper issueMapper;
+
+    @Resource
+    private ProjectMapper projectMapper;
 
     @Override
     public String getSource() {
@@ -63,9 +69,22 @@ public class RdmIssueSyncServiceImpl implements IssueSyncService {
         List<SyncIssueVo> retList = new ArrayList<>();
         if (project != null) {
 
-            for (String projectId : project) {
+            for (String projectStr : project) {
+                if (StringUtils.isBlank(projectStr)) {
+                    continue;
+                }
+                Long projectId;
+                try {
+                    projectId = Long.parseLong(projectStr);
+                } catch (NumberFormatException e) {
+                    ProjectVo vo = projectMapper.getProjectByName(projectStr);
+                    if (vo == null || vo.getId() == null) {
+                        continue;
+                    }
+                    projectId = vo.getId();
+                }
                 IssueConditionVo issueVo = new IssueConditionVo();
-                issueVo.setProjectId(Long.parseLong(projectId));
+                issueVo.setProjectId(projectId);
                 List<Long> idList = issueMapper.searchIssueId(issueVo);
                 if (CollectionUtils.isNotEmpty(idList)) {
                     issueVo.setIdList(idList);
