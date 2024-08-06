@@ -249,18 +249,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
                    ELSE 'to'
                    END                                                               as direction,
                (select count(1) from rdm_issue_audit ria where ria.issue_id = ri.id) as auditCount,
-               (select count(1)
-                from (select x.id
-                      from rdm_issue_comment x
-                      where x.issue_id = ri.id
-                      limit 1) x2)                                                   as commentCount,
+               case
+                   when exists
+                       (select 1
+                        from rdm_issue_comment x
+                        where x.issue_id = ri.id) then 1
+                   else 0 end                                                        as commentCount,
                riw.issue_id                                                          as webhookIssueId,
                riw.data_id                                                           as webhookDataId,
-               rwd.app_id                             as webhookAppId,
-               ric.id                                 as issueCostId,
-               DATE_FORMAT(ric.cost_date, '%Y-%m-%d') as issueCostDate,
-               ric.timecost                           as issueCostTime,
-               ric.description                        as issueCostDescription
+               rwd.app_id                                                            as webhookAppId,
+               ric.id                                                                as issueCostId,
+               DATE_FORMAT(ric.cost_date, '%Y-%m-%d')                                as issueCostDate,
+               ric.timecost                                                          as issueCostTime,
+               ric.description                                                       as issueCostDescription
         from rdm_issue ri
                  join rdm_app ra on ri.app_id = ra.id
                  left join rdm_priority as rp on ri.priority = rp.id
