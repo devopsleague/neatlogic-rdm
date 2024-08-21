@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.issue;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.asynchronization.threadlocal.UserContext;
@@ -94,11 +95,11 @@ public class SearchIssueApi extends PrivateApiComponentBase {
     @Override
     public Object myDoService(JSONObject paramObj) {
         paramObj.put("maxPageSize", 500);//调整最大分页上限，为了应对故事墙搜索模式
-        IssueConditionVo issueVo = JSONObject.toJavaObject(paramObj, IssueConditionVo.class);
-        if (CollectionUtils.isNotEmpty(issueVo.getSortList())) {
+        IssueConditionVo issueVo = JSON.toJavaObject(paramObj, IssueConditionVo.class);
+        /*if (CollectionUtils.isNotEmpty(issueVo.getSortList())) {
             List<AppAttrVo> attrList = attrMapper.getAttrByAppId(issueVo.getAppId());
 
-        }
+        }*/
         ProjectVo projectVo = projectMapper.getProjectById(issueVo.getProjectId());
         if (!ProjectAuthManager.checkProjectAuth(issueVo.getProjectId(), ProjectUserType.OWNER, ProjectUserType.LEADER, ProjectUserType.MEMBER)) {
             throw new IssueNotAuthSearchException();
@@ -164,7 +165,7 @@ public class SearchIssueApi extends PrivateApiComponentBase {
                                         issueAttrVo.setIssueId(queryIssueVo.getId());
                                         issueAttrVo.setAttrId(Long.parseLong(key));
                                         if (attrMap.get(key).toString().startsWith("[") && attrMap.get(key).toString().endsWith("]")) {
-                                            issueAttrVo.setValueList(JSONArray.parseArray(attrMap.get(key).toString()));
+                                            issueAttrVo.setValueList(JSON.parseArray(attrMap.get(key).toString()));
                                         } else {
                                             issueAttrVo.setValueList(new JSONArray() {{
                                                 this.add(attrMap.get(key));

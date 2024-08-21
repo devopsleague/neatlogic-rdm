@@ -640,12 +640,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
     <sql id="searchIssueSql">
         <where>
             <if test="projectId != null">
-                and ra.project_id =
-                #{projectId}
+                and ra.project_id = #{projectId}
             </if>
             <if test="appId != null">
-                and ri.app_id =
-                #{appId}
+                and ri.app_id = #{appId}
+            </if>
+            <if test="issueId != null">
+                and ri.id = #{issueId}
             </if>
             <if test="createUser != null and createUser != ''">
                 and ri.create_user =
