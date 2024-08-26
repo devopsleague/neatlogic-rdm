@@ -62,6 +62,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
         from rdm_iteration a
         <include refid="searchIterationSql"></include>
     </select>
+    <select id="getIterationByIdList" resultType="neatlogic.framework.rdm.dto.IterationVo">
+        select
+            a.id,
+            a.name,
+            a.project_id as projectId,
+            a.start_date as startDate,
+            a.end_date as endDate,
+            a.is_open as isOpen,
+            a.description
+        from rdm_iteration a
+        where a.id in
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
 
     <sql id="searchIterationSql">
         <where>

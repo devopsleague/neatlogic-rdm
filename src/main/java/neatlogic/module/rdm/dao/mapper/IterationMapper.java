@@ -24,6 +24,8 @@ public interface IterationMapper {
 
     List<IterationVo> searchIteration(IterationVo iterationVo);
 
+    List<IterationVo> getIterationByIdList(List<Long> idList);
+
     void updateIterationIsOpen(IterationVo iterationVo);
 
     int searchIterationCount(IterationVo iterationVo);
@@ -31,4 +33,5 @@ public interface IterationMapper {
     void updateIteration(IterationVo iterationVo);
 
     void insertIteration(IterationVo iterationVo);
+
 }
