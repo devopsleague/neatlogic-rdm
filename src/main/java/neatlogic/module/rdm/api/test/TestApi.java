@@ -17,27 +17,19 @@ package neatlogic.module.rdm.api.test;
 
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
-import neatlogic.framework.rdm.attrhandler.code.AttrHandlerFactory;
-import neatlogic.framework.rdm.attrhandler.code.IAttrValueHandler;
 import neatlogic.framework.rdm.auth.label.RDM_BASE;
-import neatlogic.framework.rdm.enums.AttrType;
 import neatlogic.framework.restful.annotation.Description;
 import neatlogic.framework.restful.annotation.OperationType;
+import neatlogic.framework.restful.constvalue.ApiAnonymousAccessSupportEnum;
 import neatlogic.framework.restful.constvalue.OperationTypeEnum;
 import neatlogic.framework.restful.core.privateapi.PrivateApiComponentBase;
-import neatlogic.module.rdm.dao.mapper.IssueMapper;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 @Service
 @AuthAction(action = RDM_BASE.class)
 @OperationType(type = OperationTypeEnum.SEARCH)
 public class TestApi extends PrivateApiComponentBase {
 
-
-    @Resource
-    private IssueMapper issueMapper;
 
     @Override
     public String getName() {
@@ -52,15 +44,16 @@ public class TestApi extends PrivateApiComponentBase {
     @Description(desc = "test")
     @Override
     public Object myDoService(JSONObject paramObj) {
-        for (AttrType attrType : AttrType.values()) {
-            IAttrValueHandler handler = AttrHandlerFactory.getHandler(attrType.getType());
-            System.out.println(handler.getName().toUpperCase() + "(\"" + handler.getType() + "\", \"" + handler.getName() + "\", \"" + handler.getLabel() + "\", " + handler.getIsPrivate() + ", " + handler.getIsArray() + ", " + handler.getBelong() + ", \"" + handler.getImportHelp() + "\"),");
-        }
-        return null;
+        return "123";
     }
 
     @Override
     public String getToken() {
         return "/rdm/test";
+    }
+
+    @Override
+    public ApiAnonymousAccessSupportEnum supportAnonymousAccess() {
+        return ApiAnonymousAccessSupportEnum.ANONYMOUS_ACCESS_WITHOUT_ENCRYPTION;
     }
 }
