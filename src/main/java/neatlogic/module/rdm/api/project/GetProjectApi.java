@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.project;
 
+import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.rdm.auth.label.RDM_BASE;
@@ -23,7 +24,6 @@ import neatlogic.framework.restful.annotation.*;
 import neatlogic.framework.restful.constvalue.OperationTypeEnum;
 import neatlogic.framework.restful.core.privateapi.PrivateApiComponentBase;
 import neatlogic.module.rdm.dao.mapper.ProjectMapper;
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -48,7 +48,7 @@ public class GetProjectApi extends PrivateApiComponentBase {
 
     @Input({@Param(name = "id", type = ApiParamType.LONG, isRequired = true, desc = "项目id")})
     @Output({@Param(explode = ProjectVo.class)})
-    @Description(desc = "获取项目详情接口")
+    @Description(desc = "获取项目详情")
     @Override
     public Object myDoService(JSONObject paramObj) {
         return projectMapper.getProjectById(paramObj.getLong("id"));

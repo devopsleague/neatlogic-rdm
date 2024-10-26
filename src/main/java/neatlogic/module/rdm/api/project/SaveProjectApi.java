@@ -84,7 +84,7 @@ public class SaveProjectApi extends PrivateApiComponentBase {
     @Input({@Param(name = "id", type = ApiParamType.LONG, desc = "nmrap.saveprojectapi.input.param.desc.id"),
             @Param(name = "name", type = ApiParamType.STRING, xss = true, isRequired = true, maxLength = 50, desc = "term.rdm.projectname"),
             @Param(name = "templateId", type = ApiParamType.LONG, isRequired = true, desc = "term.rdm.projecttype"),
-            @Param(name = "description", type = ApiParamType.STRING, desc = "common.description", maxLength = 500, xss = true),
+            @Param(name = "description", type = ApiParamType.STRING, desc = "common.description", maxLength = 5000),
             @Param(name = "dateRange", type = ApiParamType.JSONARRAY, desc = "term.rdm.startenddate"),
             @Param(name = "memberIdList", type = ApiParamType.JSONARRAY, desc = "nmrap.saveprojectapi.input.param.desc.memberidlist"),
             @Param(name = "leaderIdList", type = ApiParamType.JSONARRAY, desc = "term.rdm.project.manageridlist"),
@@ -94,7 +94,7 @@ public class SaveProjectApi extends PrivateApiComponentBase {
     @Override
     public Object myDoService(JSONObject paramObj) {
         Long id = paramObj.getLong("id");
-        ProjectVo projectVo = JSONObject.toJavaObject(paramObj, ProjectVo.class);
+        ProjectVo projectVo = JSON.toJavaObject(paramObj, ProjectVo.class);
         projectVo.setIsClose(0);
         if (projectMapper.checkProjectNameIsExists(projectVo) > 0) {
             throw new ProjectNameIsExistsException(projectVo.getName());
