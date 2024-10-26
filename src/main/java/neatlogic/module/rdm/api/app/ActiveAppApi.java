@@ -151,6 +151,7 @@ public class ActiveAppApi extends PrivateApiComponentBase {
             }
         }
         if (appVo != null && appVo.getHasIssue()) {
+            appVo.setAttrList(attrMapper.getAttrByAppId(appVo.getId()));
             EscapeTransactionJob.State s = projectService.buildObjectSchema(appVo);
             if (!s.isSucceed()) {
                 throw new CreateObjectSchemaException(appVo.getName());

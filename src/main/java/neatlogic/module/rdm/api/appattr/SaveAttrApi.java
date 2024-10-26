@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.appattr;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
@@ -71,7 +72,7 @@ public class SaveAttrApi extends PrivateApiComponentBase {
     @Description(desc = "nmraa.saveattrapi.getname")
     @Override
     public Object myDoService(JSONObject paramObj) {
-        AppAttrVo appAttrVo = JSONObject.toJavaObject(paramObj, AppAttrVo.class);
+        AppAttrVo appAttrVo = JSON.toJavaObject(paramObj, AppAttrVo.class);
         appAttrVo.setIsPrivate(0);
         if (attrMapper.checkAttrNameIsExists(appAttrVo) > 0) {
             throw new AppAttrNameIsExistsException(appAttrVo.getName());

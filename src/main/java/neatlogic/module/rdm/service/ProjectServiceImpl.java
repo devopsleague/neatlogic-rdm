@@ -47,7 +47,7 @@ public class ProjectServiceImpl implements ProjectService {
     public EscapeTransactionJob.State buildObjectSchema(AppVo appVo) {
         return new EscapeTransactionJob(() -> {
             if (projectSchemaMapper.checkSchemaIsExists(TenantContext.get().getDataDbName()) > 0) {
-                if (projectSchemaMapper.checkTableIsExists(TenantContext.get().getDataDbName(), "rdm_object_" + appVo.getId()) <= 0) {
+                if (projectSchemaMapper.checkTableIsExists(TenantContext.get().getDataDbName(), "rdm_app_" + appVo.getId()) <= 0) {
                     //创建配置项表
                     projectSchemaMapper.insertAppTable(appVo.getTableName());
                     if (CollectionUtils.isNotEmpty(appVo.getAttrList())) {
