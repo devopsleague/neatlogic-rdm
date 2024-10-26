@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.status;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
@@ -50,10 +51,10 @@ public class GetStatusRelApi extends PrivateApiComponentBase {
             @Param(name = "fromStatusId", desc = "来源状态", isRequired = true, type = ApiParamType.LONG),
             @Param(name = "toStatusId", desc = "目标状态", isRequired = true, type = ApiParamType.LONG)})
     @Output({@Param(explode = ValueTextVo[].class)})
-    @Description(desc = "获取状态关系接口")
+    @Description(desc = "获取状态关系")
     @Override
     public Object myDoService(JSONObject paramObj) {
-        AppStatusRelVo appStatusRelVo = JSONObject.toJavaObject(paramObj, AppStatusRelVo.class);
+        AppStatusRelVo appStatusRelVo = JSON.toJavaObject(paramObj, AppStatusRelVo.class);
         return appMapper.getAppStatusRel(appStatusRelVo);
     }
 

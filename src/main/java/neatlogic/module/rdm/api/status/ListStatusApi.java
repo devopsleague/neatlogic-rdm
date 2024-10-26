@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.status;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.asynchronization.threadlocal.UserContext;
@@ -60,7 +61,7 @@ public class ListStatusApi extends PrivateApiComponentBase {
     @Description(desc = "nmras.liststatusapi.getname")
     @Override
     public Object myDoService(JSONObject paramObj) {
-        IssueVo issueVo = JSONObject.toJavaObject(paramObj, IssueVo.class);
+        IssueVo issueVo = JSON.toJavaObject(paramObj, IssueVo.class);
         /*AppStatusVo startStatus = null;
         if (status != null && status.equals(0L)) {
             List<AppStatusVo> statusList = appMapper.getStatusByAppId(issueVo);

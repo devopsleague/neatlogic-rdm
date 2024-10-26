@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.priority;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
@@ -55,7 +56,7 @@ public class SavePriorityApi extends PrivateApiComponentBase {
     @Override
     public Object myDoService(JSONObject paramObj) {
         Long id = paramObj.getLong("id");
-        PriorityVo priorityVo = JSONObject.toJavaObject(paramObj, PriorityVo.class);
+        PriorityVo priorityVo = JSON.toJavaObject(paramObj, PriorityVo.class);
         if (priorityMapper.checkPriorityNameIsExists(priorityVo) > 0) {
             throw new PriorityNameIsExistsException(priorityVo.getName());
         }

@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.issueaudit;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
@@ -53,10 +54,10 @@ public class SearchIssueAuditApi extends PrivateApiComponentBase {
     @Input({@Param(name = "issueId", type = ApiParamType.LONG, isRequired = true, desc = "任务id")
     })
     @Output({@Param(explode = IssueCountVo[].class)})
-    @Description(desc = "搜索变更历史接口")
+    @Description(desc = "搜索变更历史")
     @Override
     public Object myDoService(JSONObject paramObj) {
-        IssueAuditVo issueAuditVo = JSONObject.toJavaObject(paramObj, IssueAuditVo.class);
+        IssueAuditVo issueAuditVo = JSON.toJavaObject(paramObj, IssueAuditVo.class);
         int rowNum = issueAuditMapper.searchIssueAuditCount(issueAuditVo);
         issueAuditVo.setRowNum(rowNum);
         List<IssueAuditVo> issueAuditList = null;

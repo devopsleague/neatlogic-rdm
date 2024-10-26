@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.template;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
@@ -61,7 +62,7 @@ public class SaveProjectTemplateApi extends PrivateApiComponentBase {
     @Override
     public Object myDoService(JSONObject paramObj) {
         Long id = paramObj.getLong("id");
-        ProjectTemplateVo projectTemplateVo = JSONObject.toJavaObject(paramObj, ProjectTemplateVo.class);
+        ProjectTemplateVo projectTemplateVo = JSON.toJavaObject(paramObj, ProjectTemplateVo.class);
         if (projectTemplateVo.getAppTypeList().isEmpty()) {
             throw new AppTypeIsEmptyException();
         }

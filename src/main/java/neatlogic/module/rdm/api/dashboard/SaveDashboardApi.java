@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.dashboard;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.asynchronization.threadlocal.UserContext;
 import neatlogic.framework.auth.core.AuthAction;
@@ -72,7 +73,7 @@ public class SaveDashboardApi extends PrivateApiComponentBase {
         if (!ProjectAuthManager.checkAppAuth(appId, ProjectUserType.OWNER, ProjectUserType.LEADER, ProjectUserType.MEMBER)) {
             throw new ProjectNotAuthDashboardException();
         }
-        DashboardVo dashboardVo = JSONObject.toJavaObject(jsonObj, DashboardVo.class);
+        DashboardVo dashboardVo = JSON.toJavaObject(jsonObj, DashboardVo.class);
         String userUuid = UserContext.get().getUserUuid(true);
         if (id == null) {
             dashboardVo.setFcu(userUuid);

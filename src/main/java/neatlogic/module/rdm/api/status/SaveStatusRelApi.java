@@ -15,12 +15,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.status;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.rdm.auth.label.RDM_BASE;
 import neatlogic.framework.rdm.dto.AppStatusRelVo;
-import neatlogic.framework.restful.annotation.*;
+import neatlogic.framework.restful.annotation.Description;
+import neatlogic.framework.restful.annotation.Input;
+import neatlogic.framework.restful.annotation.OperationType;
+import neatlogic.framework.restful.annotation.Param;
 import neatlogic.framework.restful.constvalue.OperationTypeEnum;
 import neatlogic.framework.restful.core.privateapi.PrivateApiComponentBase;
 import neatlogic.module.rdm.dao.mapper.AppMapper;
@@ -52,7 +56,7 @@ public class SaveStatusRelApi extends PrivateApiComponentBase {
     @Description(desc = "修改状态关系配置接口")
     @Override
     public Object myDoService(JSONObject paramObj) {
-        AppStatusRelVo appStatusRelVo = JSONObject.toJavaObject(paramObj, AppStatusRelVo.class);
+        AppStatusRelVo appStatusRelVo = JSON.toJavaObject(paramObj, AppStatusRelVo.class);
         appMapper.updateAppStatusRelConfig(appStatusRelVo);
         return null;
     }

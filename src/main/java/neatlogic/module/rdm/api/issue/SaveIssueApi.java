@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.issue;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.asynchronization.threadlocal.UserContext;
 import neatlogic.framework.auth.core.AuthAction;
@@ -32,7 +33,9 @@ import neatlogic.framework.restful.annotation.*;
 import neatlogic.framework.restful.constvalue.OperationTypeEnum;
 import neatlogic.framework.restful.core.privateapi.PrivateApiComponentBase;
 import neatlogic.module.rdm.auth.ProjectAuthManager;
-import neatlogic.module.rdm.dao.mapper.*;
+import neatlogic.module.rdm.dao.mapper.AppMapper;
+import neatlogic.module.rdm.dao.mapper.AttrMapper;
+import neatlogic.module.rdm.dao.mapper.IssueMapper;
 import neatlogic.module.rdm.service.IssueService;
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Service;
@@ -52,12 +55,6 @@ public class SaveIssueApi extends PrivateApiComponentBase {
     private AttrMapper attrMapper;
     @Resource
     private IssueMapper issueMapper;
-
-    @Resource
-    private CommentMapper commentMapper;
-
-    @Resource
-    private TagMapper tagMapper;
 
     @Resource
     private AppMapper appMapper;
@@ -101,7 +98,7 @@ public class SaveIssueApi extends PrivateApiComponentBase {
         if (!ProjectAuthManager.checkAppAuth(appId, ProjectUserType.MEMBER, ProjectUserType.OWNER, ProjectUserType.LEADER)) {
             throw new ProjectNotAuthIssueException();
         }
-        IssueVo issueVo = JSONObject.toJavaObject(paramObj, IssueVo.class);
+        IssueVo issueVo = JSON.toJavaObject(paramObj, IssueVo.class);
         issueVo.setCreateUser(UserContext.get().getUserUuid(true));
         issueVo.formatAttr();
         Long id = paramObj.getLong("id");

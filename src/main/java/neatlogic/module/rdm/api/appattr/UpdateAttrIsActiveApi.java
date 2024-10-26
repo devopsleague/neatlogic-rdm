@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.appattr;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
@@ -54,7 +55,7 @@ public class UpdateAttrIsActiveApi extends PrivateApiComponentBase {
     @Description(desc = "修改应用属性激活状态接口")
     @Override
     public Object myDoService(JSONObject paramObj) {
-        AppAttrVo objectAttrVo = JSONObject.toJavaObject(paramObj, AppAttrVo.class);
+        AppAttrVo objectAttrVo = JSON.toJavaObject(paramObj, AppAttrVo.class);
         attrMapper.updateAppAttrIsActive(objectAttrVo);
         return null;
     }

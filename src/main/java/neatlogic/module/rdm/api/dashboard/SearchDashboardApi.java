@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.dashboard;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
@@ -69,7 +70,7 @@ public class SearchDashboardApi extends PrivateApiComponentBase {
     @Description(desc = "nmda.searchdashboardapi.getname")
     @Override
     public Object myDoService(JSONObject jsonObj) {
-        DashboardVo dashboardVo = JSONObject.toJavaObject(jsonObj, DashboardVo.class);
+        DashboardVo dashboardVo = JSON.toJavaObject(jsonObj, DashboardVo.class);
         int rowNum = dashboardMapper.searchDashboardCount(dashboardVo);
         List<DashboardVo> dashboardList = null;
         if (rowNum > 0) {

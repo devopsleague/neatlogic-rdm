@@ -15,12 +15,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.iteration;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
 import neatlogic.framework.rdm.auth.label.RDM_BASE;
 import neatlogic.framework.rdm.dto.IterationVo;
-import neatlogic.framework.restful.annotation.*;
+import neatlogic.framework.restful.annotation.Description;
+import neatlogic.framework.restful.annotation.Input;
+import neatlogic.framework.restful.annotation.OperationType;
+import neatlogic.framework.restful.annotation.Param;
 import neatlogic.framework.restful.constvalue.OperationTypeEnum;
 import neatlogic.framework.restful.core.privateapi.PrivateApiComponentBase;
 import neatlogic.module.rdm.dao.mapper.IterationMapper;
@@ -51,10 +55,10 @@ public class ToggleIterationIsOpenApi extends PrivateApiComponentBase {
     @Input({@Param(name = "id", type = ApiParamType.LONG, desc = "id", isRequired = true),
             @Param(name = "isOpen", type = ApiParamType.INTEGER, desc = "是否开启", isRequired = true)
     })
-    @Description(desc = "修改迭代开关状态接口")
+    @Description(desc = "修改迭代开关状态")
     @Override
     public Object myDoService(JSONObject paramObj) {
-        IterationVo iterationVo = JSONObject.toJavaObject(paramObj, IterationVo.class);
+        IterationVo iterationVo = JSON.toJavaObject(paramObj, IterationVo.class);
         iterationMapper.updateIterationIsOpen(iterationVo);
         return null;
     }

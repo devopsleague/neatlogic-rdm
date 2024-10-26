@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.app;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
@@ -59,9 +60,10 @@ public class GetAppCompleteRateApi extends PrivateApiComponentBase {
     @Description(desc = "nmraa.getappcompleterateapi.getname")
     @Override
     public Object myDoService(JSONObject paramObj) {
-        IssueVo issueVo = JSONObject.toJavaObject(paramObj, IssueVo.class);
+        IssueVo issueVo = JSON.toJavaObject(paramObj, IssueVo.class);
         List<IssueCountVo> countList = issueMapper.getIssueCountByAppId(issueVo);
-        float all = 0, end = 0;
+        float all = 0;
+        float end = 0;
         for (IssueCountVo count : countList) {
             if (count.getType().equals("end")) {
                 end = count.getCount();

@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.priority;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
@@ -57,7 +58,7 @@ public class UpdatePrioritySortApi extends PrivateApiComponentBase {
     public Object myDoService(JSONObject paramObj) {
         JSONArray list = paramObj.getJSONArray("priorityList");
         for (int i = 0; i < list.size(); i++) {
-            PriorityVo priorityVo = JSONObject.toJavaObject(list.getJSONObject(i), PriorityVo.class);
+            PriorityVo priorityVo = JSON.toJavaObject(list.getJSONObject(i), PriorityVo.class);
             priorityVo.setSort(i + 1);
             priorityMapper.updatePrioritySort(priorityVo);
         }

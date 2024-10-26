@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.status;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
@@ -51,11 +52,11 @@ public class ToggleStatusRelApi extends PrivateApiComponentBase {
             @Param(name = "appId", type = ApiParamType.LONG, isRequired = true, desc = "应用id"),
             @Param(name = "action", type = ApiParamType.ENUM, rule = "add,delete", desc = "动作")})
     @Output({@Param(type = ApiParamType.LONG, desc = "关系id")})
-    @Description(desc = "添加或删除应用状态流转关系接口")
+    @Description(desc = "添加或删除应用状态流转关系")
     @Override
     public Object myDoService(JSONObject paramObj) {
         String action = paramObj.getString("action");
-        AppStatusRelVo appStatusRelVo = JSONObject.toJavaObject(paramObj, AppStatusRelVo.class);
+        AppStatusRelVo appStatusRelVo = JSON.toJavaObject(paramObj, AppStatusRelVo.class);
         if (action.equals("add")) {
             appMapper.insertAppStatusRel(appStatusRelVo);
             return appStatusRelVo.getId();

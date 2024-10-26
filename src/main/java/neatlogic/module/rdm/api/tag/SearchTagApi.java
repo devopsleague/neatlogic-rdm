@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.tag;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
@@ -53,10 +54,10 @@ public class SearchTagApi extends PrivateApiComponentBase {
             @Param(name = "currentPage", type = ApiParamType.INTEGER, desc = "当前页")
     })
     @Output({@Param(explode = TagVo[].class)})
-    @Description(desc = "搜索标签接口")
+    @Description(desc = "搜索标签")
     @Override
     public Object myDoService(JSONObject paramObj) {
-        TagVo tagVo = JSONObject.toJavaObject(paramObj, TagVo.class);
+        TagVo tagVo = JSON.toJavaObject(paramObj, TagVo.class);
         return tagMapper.searchTag(tagVo);
     }
 

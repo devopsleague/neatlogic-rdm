@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.issuecost;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
@@ -66,7 +67,7 @@ public class SearchIssueCostApi extends PrivateApiComponentBase {
         if (!ProjectAuthManager.checkIssueAuth(issueId, ProjectUserType.OWNER, ProjectUserType.LEADER, ProjectUserType.MEMBER)) {
             throw new IssueCostNotAuthSearchException();
         }
-        IssueCostVo issueCostVo = JSONObject.toJavaObject(paramObj, IssueCostVo.class);
+        IssueCostVo issueCostVo = JSON.toJavaObject(paramObj, IssueCostVo.class);
         int rowNum = issueCostMapper.searchIssueCostCount(issueCostVo);
         List<IssueCostVo> issueCostList = null;
         if (rowNum > 0) {

@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.issue;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
@@ -56,10 +57,10 @@ public class SearchCommentApi extends PrivateApiComponentBase {
             @Param(name = "currentPage", type = ApiParamType.INTEGER, desc = "当前页"),
             @Param(name = "pageSize", type = ApiParamType.INTEGER, desc = "每页大小")})
     @Output({@Param(explode = BasePageVo.class), @Param(name = "tbodyList", explode = CommentVo[].class)})
-    @Description(desc = "搜索评论接口")
+    @Description(desc = "搜索评论")
     @Override
     public Object myDoService(JSONObject paramObj) {
-        CommentVo commentVo = JSONObject.toJavaObject(paramObj, CommentVo.class);
+        CommentVo commentVo = JSON.toJavaObject(paramObj, CommentVo.class);
         int rowNum = commentMapper.searchCommentCount(commentVo);
         commentVo.setRowNum(rowNum);
         List<CommentVo> commentList = null;

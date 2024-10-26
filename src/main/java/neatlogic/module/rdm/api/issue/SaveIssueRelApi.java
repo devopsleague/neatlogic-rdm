@@ -60,7 +60,7 @@ public class SaveIssueRelApi extends PrivateApiComponentBase {
             @Param(name = "idList", type = ApiParamType.JSONARRAY, isRequired = true, desc = "关联任务id列表，由direction参数决定是来源任务id还是目标任务id列表"),
             @Param(name = "relType", type = ApiParamType.ENUM, isRequired = true, member = IssueRelType.class, desc = "关系类型")
     })
-    @Description(desc = "保存任务关联关系接口")
+    @Description(desc = "保存任务关联关系")
     @Override
     public Object myDoService(JSONObject paramObj) {
         Long id = paramObj.getLong("id");

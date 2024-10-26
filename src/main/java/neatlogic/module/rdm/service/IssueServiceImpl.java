@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import neatlogic.framework.asynchronization.threadlocal.UserContext;
 import neatlogic.framework.common.constvalue.GroupSearch;
@@ -155,7 +156,7 @@ public class IssueServiceImpl implements IssueService {
                             issueAttrVo.setAttrType(appAttrVo.getType());
                             issueAttrVo.setConfig(appAttrVo.getConfig());
                             if (attrMap.get(key).toString().startsWith("[") && attrMap.get(key).toString().endsWith("]")) {
-                                JSONArray valueList = JSONArray.parseArray(attrMap.get(key).toString());
+                                JSONArray valueList = JSON.parseArray(attrMap.get(key).toString());
                                 issueAttrVo.setValueList(valueList);
                             } else {
                                 issueAttrVo.setValueList(new JSONArray() {{

@@ -48,7 +48,7 @@ public class ListStatusRelApi extends PrivateApiComponentBase {
 
     @Input({@Param(name = "appId", type = ApiParamType.LONG, isRequired = true, desc = "应用id")})
     @Output({@Param(explode = AppStatusRelVo[].class)})
-    @Description(desc = "获取对象状态关系列表接口")
+    @Description(desc = "获取对象状态关系列表")
     @Override
     public Object myDoService(JSONObject paramObj) {
         return appMapper.getStatusRelByAppId(paramObj.getLong("appId"));

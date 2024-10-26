@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.comment;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.asynchronization.threadlocal.UserContext;
 import neatlogic.framework.auth.core.AuthAction;
@@ -62,11 +63,11 @@ public class SaveCommentApi extends PrivateApiComponentBase {
             @Param(name = "parentId", type = ApiParamType.LONG, desc = "回复评论id")
     })
     @Output({@Param(type = ApiParamType.LONG, desc = "真正的父评论id")})
-    @Description(desc = "保存评论接口")
+    @Description(desc = "保存评论")
     @Override
     public Object myDoService(JSONObject paramObj) {
         Long id = paramObj.getLong("id");
-        CommentVo commentVo = JSONObject.toJavaObject(paramObj, CommentVo.class);
+        CommentVo commentVo = JSON.toJavaObject(paramObj, CommentVo.class);
         IssueVo issueVo = issueMapper.getIssueById(commentVo.getIssueId());
         if (issueVo == null) {
             throw new IssueNotFoundException(commentVo.getIssueId());

@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.iteration;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
@@ -59,7 +60,7 @@ public class SaveIterationApi extends PrivateApiComponentBase {
     @Override
     public Object myDoService(JSONObject paramObj) {
         Long id = paramObj.getLong("id");
-        IterationVo iterationVo = JSONObject.toJavaObject(paramObj, IterationVo.class);
+        IterationVo iterationVo = JSON.toJavaObject(paramObj, IterationVo.class);
         iterationVo.setStartDate(null);
         iterationVo.setEndDate(null);
         if (id == null) {

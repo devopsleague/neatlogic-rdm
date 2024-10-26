@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.app;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
@@ -56,7 +57,7 @@ public class SaveAppConfigApi extends PrivateApiComponentBase {
     @Description(desc = "nmraa.saveappconfigapi.getname")
     @Override
     public Object myDoService(JSONObject paramObj) {
-        AppVo appVo = JSONObject.toJavaObject(paramObj, AppVo.class);
+        AppVo appVo = JSON.toJavaObject(paramObj, AppVo.class);
         appMapper.saveAppConfig(appVo);
         return null;
     }

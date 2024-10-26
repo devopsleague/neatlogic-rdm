@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.status;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
@@ -59,7 +60,7 @@ public class SaveStatusApi extends PrivateApiComponentBase {
     @Description(desc = "nmras.savestatusapi.getname")
     @Override
     public Object myDoService(JSONObject paramObj) {
-        AppStatusVo appStatusVo = JSONObject.toJavaObject(paramObj, AppStatusVo.class);
+        AppStatusVo appStatusVo = JSON.toJavaObject(paramObj, AppStatusVo.class);
 
         if (paramObj.getLong("id") == null) {
             IssueConditionVo issueConditionVo = new IssueConditionVo();

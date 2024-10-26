@@ -15,6 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 package neatlogic.module.rdm.api.issue;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import neatlogic.framework.auth.core.AuthAction;
 import neatlogic.framework.common.constvalue.ApiParamType;
@@ -49,10 +50,10 @@ public class GetIssueCountApi extends PrivateApiComponentBase {
     @Input({@Param(name = "projectId", type = ApiParamType.LONG, isRequired = true, desc = "项目id"),
             @Param(name = "groupBy", type = ApiParamType.ENUM, rule = "day,month", isRequired = true, desc = "分组类型")})
     @Output({@Param(explode = IssueCountVo[].class)})
-    @Description(desc = "获取任务数量接口")
+    @Description(desc = "获取任务数量")
     @Override
     public Object myDoService(JSONObject paramObj) {
-        IssueCountVo issueCountVo = JSONObject.toJavaObject(paramObj, IssueCountVo.class);
+        IssueCountVo issueCountVo = JSON.toJavaObject(paramObj, IssueCountVo.class);
         return issueMapper.getIssueCountByProjectId(issueCountVo);
     }
 
